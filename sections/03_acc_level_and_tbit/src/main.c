@@ -10,7 +10,7 @@ void generate_interrupt(void);
 void change_access_level_unpriv(void);
 
 int main(void) {
-    initialise_monitor_handles(); // semihosting
+     initialise_monitor_handles(); // semihosting
     
     printf("In thread mode : before interrupt\n");
 

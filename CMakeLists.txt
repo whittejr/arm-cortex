@@ -1,7 +1,7 @@
 cmake_minimum_required(VERSION 3.22)
 project(${TARGET_MCU} C CXX ASM)
 
-set(SECAO_ATUAL "sections/03_acc_level_and_tbit")
+set(SECAO_ATUAL "sections/04_bit_banding")
 
 set(CMAKE_C_STANDARD 11)
 set(CMAKE_CXX_STANDARD 17)
