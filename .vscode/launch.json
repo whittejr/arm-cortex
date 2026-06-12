@@ -17,11 +17,18 @@
         "interface/stlink.cfg",
         "target/stm32wbx.cfg" /* change to the correct target */
       ],
-      "svdFile": "${workspaceFolder}/tools/STM32WB55_CM4.svd", /* change to the correct target */
+      "svdFile": "${workspaceFolder}/tools/svd/STM32WB55_CM4.svd", /* change to the correct target */
       "liveWatch": {
         "enabled": true,
         "samplesPerSecond": 20
-      }
+      },
+
+      // semihosting cfg
+      "openOCDLaunchCommands": [
+        "init",
+        "arm semihosting enable"
+      ]
+
     }
   ]
 }

@@ -15,5 +15,5 @@ uint8_t clock_config(void) {
   * clock configuration can be generated using CubeMX Software
   */
 
-
+  return 0;
 }

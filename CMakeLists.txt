@@ -1,6 +1,8 @@
 cmake_minimum_required(VERSION 3.22)
 project(${TARGET_MCU} C CXX ASM)
 
+set(SECAO_ATUAL "sections/03_acc_level_and_tbit")
+
 set(CMAKE_C_STANDARD 11)
 set(CMAKE_CXX_STANDARD 17)
 set(CMAKE_EXPORT_COMPILE_COMMANDS ON)
@@ -22,12 +24,12 @@ if("${HAL_SOURCES}" STREQUAL "")
 endif()
 
 file(GLOB_RECURSE APP_SOURCES CONFIGURE_DEPENDS
-    "core/src/*.c"
+    "${SECAO_ATUAL}/src/*.c"
     "lib/BSP/src/*.c"
     "lib/components/*.c"
 )
 file(GLOB_RECURSE HEADER_FILES CONFIGURE_DEPENDS 
-    "core/inc/*.h" 
+    "${SECAO_ATUAL}/inc/*.h" 
     "lib/BSP/inc/*.h" 
     "lib/components/*.h"
 )
@@ -60,8 +62,8 @@ target_compile_options(${EXECUTABLE} PRIVATE
 target_link_options(${EXECUTABLE} PRIVATE
     -T${LINKER_SCRIPT}
     -Wl,-Map=${CMAKE_PROJECT_NAME}.map
-    --specs=nosys.specs
-    --specs=nano.specs
+    --specs=rdimon.specs          # Mantém APENAS esta linha para Semihosting
+    -lrdimon
     -Wl,--print-memory-usage
     -Wl,--gc-sections
 )
@@ -70,5 +72,6 @@ target_link_libraries(${EXECUTABLE} PRIVATE -lc -lm)
 
 add_custom_command(TARGET ${EXECUTABLE} POST_BUILD
     COMMAND ${CMAKE_SIZE} $<TARGET_FILE:${EXECUTABLE}>
+    COMMAND ${CMAKE_OBJDUMP} -h -S $<TARGET_FILE:${EXECUTABLE}> > ${EXECUTABLE}.list
 )
 set_target_properties(${EXECUTABLE} PROPERTIES SUFFIX ".elf")
